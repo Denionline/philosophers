@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   aux.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/22 10:02:52 by dximenes          #+#    #+#             */
-/*   Updated: 2025/08/28 12:21:23 by dximenes         ###   ########.fr       */
+/*   Created: 2025/08/28 11:36:15 by dximenes          #+#    #+#             */
+/*   Updated: 2025/09/02 10:05:03 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char *argv[])
+long	ft_atol(const char *n)
 {
-	t_head	*head;
+	long	res;
+	int		neg;
 
-	if (parse(&head, argv + 1, argc - 1))
-		return (1);
-	philosophers(head);
-	return (0);
+	neg = 1;
+	while ((*n >= '\t' && *n <= '\r') || *n == ' ')
+		n++;
+	if ((*n == '+' || *n == '-') && (*(n + 1) >= '0' && *(n + 1) <= '9'))
+		if (*(n++) == '-')
+			neg = -1;
+	res = 0;
+	while (*n && (*n >= '0' && *n <= '9'))
+		res = (res * 10) + (*(n++) - '0');
+	return (res * neg);
 }
