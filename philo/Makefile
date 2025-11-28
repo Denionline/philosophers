@@ -6,7 +6,7 @@
 #    By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/22 10:28:25 by dximenes          #+#    #+#              #
-#    Updated: 2025/08/28 12:04:57 by dximenes         ###   ########.fr        #
+#    Updated: 2025/11/28 11:33:32 by dximenes         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,9 @@ INC_PATH			= include/
 SRC_PATH			= ./
 BUILD_PATH			= .build/
 
+VPATH				+= ./
+VPATH				+= src/
+
 # **************************************************************************** #
 #                                   Files                                      #
 # **************************************************************************** #
@@ -46,6 +49,7 @@ FILES				+= main
 FILES				+= parse
 FILES				+= philosophers
 FILES				+= aux
+FILES				+= print
 
 SRCS				= $(addprefix ./, $(addsuffix .c, $(FILES)))
 OBJS				= $(addprefix $(BUILD_PATH), $(addsuffix .o, $(FILES)))
@@ -63,7 +67,7 @@ RM					= rm -rf
 #                                  Commands                                    #
 # **************************************************************************** #
 
-all: start $(NAME)
+all: start $(BUILD_PATH) $(NAME)
 	@printf "$(C_MAGENTA)===========End [$(NAME)]===========$(C_STD)\n"
 
 start:
@@ -72,7 +76,7 @@ start:
 $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) -I$(INC_PATH) $(OBJS) -o $(NAME)
 
-$(BUILD_PATH)%.o: $(SRC_PATH)%.c
+$(BUILD_PATH)%.o: %.c
 	@$(CC) $(CFLAGS) -I$(INC_PATH) -c $< -o $@
 	@printf "$(C_YELLOW)Compiling $< -> $@$(C_STD)\n";
 
