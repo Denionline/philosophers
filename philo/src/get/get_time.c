@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_time.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/22 10:02:52 by dximenes          #+#    #+#             */
-/*   Updated: 2025/11/28 18:25:08 by dximenes         ###   ########.fr       */
+/*   Created: 2025/11/28 17:10:48 by dximenes          #+#    #+#             */
+/*   Updated: 2025/11/28 18:11:44 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char *argv[])
+time_t	get_time(void)
 {
-	t_head	*head;
+	struct timeval	time;
 
-	if (argc < 4 || argc > 5)
-	{
-		printf("./philo <n_philo> <time_to_die> <time_to_eat> <time_to_sleep> [limit_to_eat]\n");
-		return (1);
-	}
-	// print();
-	if (parse(&head, argv + 1, argc - 1))
-		return (1);
-	philosophers(head->philos);
-	return (0);
+	gettimeofday(&time, NULL);
+	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }

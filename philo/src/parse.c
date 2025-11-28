@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 16:28:07 by dximenes          #+#    #+#             */
-/*   Updated: 2025/11/24 23:36:55 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/11/28 18:24:34 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ int	parse(t_head **head, char *args[], int len)
 	if (len == 5)
 		info.limit_to_eat = ft_atol(args[4]);
 	(*head)->philos = get_philos(info);
+	pthread_mutex_init(&(*head)->mutex, NULL);
 	return (0);
 }

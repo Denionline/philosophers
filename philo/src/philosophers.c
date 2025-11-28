@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 09:06:49 by dximenes          #+#    #+#             */
-/*   Updated: 2025/11/24 23:43:19 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/11/28 18:12:20 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ static void	*routine(void	*args)
 {
 	const t_philo	philo = *(t_philo *)(args);
 
-	printf("philo [%d] -> have take a fork\n", philo.id);
-	printf("philo [%d] -> have take a fork\n", philo.id);
-	printf("philo [%d] -> start to eat\n", philo.id);
+	printf("philo [%d] [%ld] -> have take a fork\n", philo.id, get_time());
+	printf("philo [%d] [%ld] -> have take a fork\n", philo.id, get_time());
+	usleep(1000);
+	printf("philo [%d] [%ld] -> start to eat\n", philo.id, get_time());
 	return (NULL);
 }
 
 int	philosophers(t_philo *philos)
 {
-	// pthread_mutex_t	mutex = PTHREAD_MUTEX_INITIALIZER;
 	int	i;
 
 	i = 0;

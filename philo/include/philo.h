@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 10:26:11 by dximenes          #+#    #+#             */
-/*   Updated: 2025/11/24 23:37:21 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/11/28 18:19:48 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdio.h>
 # include <string.h>
 # include <pthread.h>
+# include <unistd.h>
+# include <sys/time.h>
 
 enum e_bool
 {
@@ -37,20 +39,24 @@ typedef struct s_philo
 {
 	int			id;
 	int			exists;
+	long		last_meal;
+	long		start_routine;
 	t_info		info;
 	pthread_t	thread;
 }	t_philo;
 
 typedef struct s_head
 {
-	t_philo	*philos;
+	pthread_mutex_t	mutex;
+	t_philo			*philos;
 }	t_head;
 
-int	parse(t_head **head, char *args[], int len);
-int	philosophers(t_philo *philos);
-int	print(void);
-
-// aux.c
+int		parse(t_head **head, char *args[], int len);
+int		philosophers(t_philo *philos);
+int		print(void);
 long	ft_atol(const char *n);
+
+// get/
+time_t	get_time(void);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/22 10:28:25 by dximenes          #+#    #+#              #
-#    Updated: 2025/11/28 11:33:32 by dximenes         ###   ########.fr        #
+#    Updated: 2025/11/28 18:29:25 by dximenes         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ C_WHITE = \033[0;97m
 #                                    Files                                     #
 # **************************************************************************** #
 
-NAME				= philo
+NAME				= philosophers
 
 # **************************************************************************** #
 #                                   Path's                                     #
@@ -40,6 +40,7 @@ BUILD_PATH			= .build/
 
 VPATH				+= ./
 VPATH				+= src/
+VPATH				+= src/get/
 
 # **************************************************************************** #
 #                                   Files                                      #
@@ -50,6 +51,7 @@ FILES				+= parse
 FILES				+= philosophers
 FILES				+= aux
 FILES				+= print
+FILES				+= get_time
 
 SRCS				= $(addprefix ./, $(addsuffix .c, $(FILES)))
 OBJS				= $(addprefix $(BUILD_PATH), $(addsuffix .o, $(FILES)))

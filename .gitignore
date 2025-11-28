@@ -1,4 +1,4 @@
 .vscode/
 */philo/.build/
 .build/
-./philo
+philosophers
