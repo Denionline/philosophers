@@ -6,7 +6,7 @@
 #    By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/22 10:28:25 by dximenes          #+#    #+#              #
-#    Updated: 2025/11/28 18:29:25 by dximenes         ###   ########.fr        #
+#    Updated: 2025/12/02 15:51:56 by dximenes         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,9 @@ BUILD_PATH			= .build/
 
 VPATH				+= ./
 VPATH				+= src/
-VPATH				+= src/get/
+VPATH				+= src/aux/
+VPATH				+= src/aux/get/
+VPATH				+= src/aux/actions/
 
 # **************************************************************************** #
 #                                   Files                                      #

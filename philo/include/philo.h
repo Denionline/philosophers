@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 10:26:11 by dximenes          #+#    #+#             */
-/*   Updated: 2025/11/28 18:19:48 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/02 22:38:29 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,31 +23,57 @@
 enum e_bool
 {
 	FALSE,
-	TRUE
+	TRUE,
 };
 
-typedef struct s_info
+enum e_actions
 {
-	long	number_of_philos;
-	long	time_to_die;
-	long	time_to_eat;
-	long	time_to_sleep;
-	long	limit_to_eat;
-}	t_info;
+	FORK,
+	EAT,
+	DIE,
+	SLEEP,
+	THINK,
+};
+
+typedef struct s_time
+{
+	long long	die;
+	long long	eat;
+	long long	sleep;
+}	t_time;
+
+typedef struct s_fork
+{
+	int				id;
+	int				exists;
+	pthread_mutex_t	mutex;
+}	t_fork;
+
 
 typedef struct s_philo
 {
+	pthread_t	thread;
 	int			id;
+	int			meals;
 	int			exists;
 	long		last_meal;
-	long		start_routine;
-	t_info		info;
-	pthread_t	thread;
+
+	t_fork		*left_fork;
+	t_fork		*right_fork;
+
+	t_head		*head;
 }	t_philo;
 
 typedef struct s_head
 {
+	long			n_philos;
+	long			meals_limit;
+	t_time			time_to;
+
+	enum e_bool		someone_died;
 	pthread_mutex_t	mutex;
+
+	t_fork			*forks;
 	t_philo			*philos;
 }	t_head;
 
