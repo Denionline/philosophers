@@ -5,16 +5,41 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/23 09:06:49 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/02 20:55:34 by dximenes         ###   ########.fr       */
+/*   Created: 2025/12/04 13:57:30 by dximenes          #+#    #+#             */
+/*   Updated: 2025/12/04 13:58:49 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+static int	release_forks(t_philo *philo)
+{
+	if (philo->id % 2)
+	{
+		pthread_mutex_unlock(philo->left_fork);
+		pthread_mutex_unlock(philo->right_fork);
+	}
+	else
+	{
+		pthread_mutex_unlock(philo->right_fork);
+		pthread_mutex_unlock(philo->left_fork);
+	}
+}
+
 static int	take_forks(t_philo *philo)
 {
-	
+	if (philo->id % 2)
+	{
+		pthread_mutex_lock(philo->left_fork);
+		pthread_mutex_lock(philo->right_fork);
+		print_actions(&philo->head->print, get_time(), philo->id, FORK);
+	}
+	else
+	{
+		pthread_mutex_lock(philo->right_fork);
+		pthread_mutex_lock(philo->left_fork);
+		print_actions(&philo->head->print, get_time(), philo->id, FORK);
+	}
 }
 
 static void	*routine(void	*args)
@@ -25,11 +50,11 @@ static void	*routine(void	*args)
 		usleep(1000);
 	while (!philo->head->someone_died)
 	{
-		think(philo);
+		action_think(philo);
 		take_forks(philo);
-		eat(philo);
+		action_eat(philo);
 		release_forks(philo);
-		sleep_philo(philo);
+		action_sleep(philo);
 	}
 	return (NULL);
 }

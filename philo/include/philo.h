@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 10:26:11 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/02 22:38:29 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/04 11:49:44 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <pthread.h>
 # include <unistd.h>
 # include <sys/time.h>
+
+typedef pthread_mutex_t mutex_t;
 
 enum e_bool
 {
@@ -44,9 +46,9 @@ typedef struct s_time
 
 typedef struct s_fork
 {
-	int				id;
-	int				exists;
-	pthread_mutex_t	mutex;
+	int		id;
+	int		exists;
+	mutex_t	mutex;
 }	t_fork;
 
 
@@ -71,7 +73,8 @@ typedef struct s_head
 	t_time			time_to;
 
 	enum e_bool		someone_died;
-	pthread_mutex_t	mutex;
+	mutex_t			mutex;
+	mutex_t			print;
 
 	t_fork			*forks;
 	t_philo			*philos;
@@ -79,8 +82,14 @@ typedef struct s_head
 
 int		parse(t_head **head, char *args[], int len);
 int		philosophers(t_philo *philos);
-int		print(void);
+int		print_actions(mutex_t *mutex, long time, int idx, enum e_actions action);
 long	ft_atol(const char *n);
+
+// aux/actions.c
+int		action_eat(t_philo *philo);
+int		action_die(t_philo *philo);
+int		action_sleep(t_philo *philo);
+int		action_think(t_philo *philo);
 
 // get/
 time_t	get_time(void);

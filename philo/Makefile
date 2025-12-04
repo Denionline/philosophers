@@ -6,7 +6,7 @@
 #    By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/22 10:28:25 by dximenes          #+#    #+#              #
-#    Updated: 2025/12/02 15:51:56 by dximenes         ###   ########.fr        #
+#    Updated: 2025/12/04 14:00:50 by dximenes         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ VPATH				+= src/aux/actions/
 # **************************************************************************** #
 
 FILES				+= main
-FILES				+= parse
+FILES				+= parse_init
 FILES				+= philosophers
 FILES				+= aux
 FILES				+= print
