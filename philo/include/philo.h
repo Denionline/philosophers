@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 10:26:11 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/04 11:49:44 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/05 16:32:36 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,26 @@ enum e_actions
 	THINK,
 };
 
+enum e_mutex_action
+{
+	LOCK,
+	UNLOCK,
+};
+
+enum e_seconds
+{
+	SECONDS,
+	MICROSECONDS,
+	MILISECONDS,
+};
+
+typedef struct s_head t_head;
+
 typedef struct s_time
 {
-	long long	die;
-	long long	eat;
-	long long	sleep;
+	time_t	die;
+	time_t	eat;
+	time_t	sleep;
 }	t_time;
 
 typedef struct s_fork
@@ -59,39 +74,44 @@ typedef struct s_philo
 	int			meals;
 	int			exists;
 	long		last_meal;
-
-	t_fork		*left_fork;
-	t_fork		*right_fork;
-
+	enum e_bool	is_dead;
+	struct s_side
+	{
+		mutex_t	*left;
+		mutex_t	*right;
+	} fork;
 	t_head		*head;
 }	t_philo;
 
 typedef struct s_head
 {
-	long			n_philos;
-	long			meals_limit;
-	t_time			time_to;
-
-	enum e_bool		someone_died;
-	mutex_t			mutex;
-	mutex_t			print;
-
-	t_fork			*forks;
-	t_philo			*philos;
+	long		n_philos;
+	long		meals_limit;
+	t_time		time_to;
+	enum e_bool	someone_died;
+	enum e_bool	is_simulation_finished;
+	mutex_t		mutex;
+	mutex_t		print;
+	time_t		start_time;
+	t_fork		*forks;
+	t_philo		*philos;
 }	t_head;
 
-int		parse(t_head **head, char *args[], int len);
-int		philosophers(t_philo *philos);
-int		print_actions(mutex_t *mutex, long time, int idx, enum e_actions action);
-long	ft_atol(const char *n);
+int			parse(t_head **head, char *args[], int len);
+int			simulation(t_head *head, t_philo *philos);
+void		print_actions(t_head *head, int idx, time_t time, enum e_actions action);
+long		ft_atol(const char *n);
+
+enum e_bool	is_simulation_finished(t_head *head);
+void		precise_sleep(long milisec, t_head *head);
 
 // aux/actions.c
-int		action_eat(t_philo *philo);
-int		action_die(t_philo *philo);
-int		action_sleep(t_philo *philo);
-int		action_think(t_philo *philo);
+int			mutex_handle(mutex_t *mutex, enum e_mutex_action action);
+void		actions(t_philo *philo, enum e_actions action);
 
 // get/
-time_t	get_time(void);
+time_t		get_time_now(enum e_seconds type);
+
+void		end(t_head *head);
 
 #endif

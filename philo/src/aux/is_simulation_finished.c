@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   is_simulation_finished.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/22 10:02:52 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/05 15:18:15 by dximenes         ###   ########.fr       */
+/*   Created: 2025/12/05 11:07:29 by dximenes          #+#    #+#             */
+/*   Updated: 2025/12/05 16:05:10 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-char	*argv[] = {"./philo", "4", "200", "100", "100", "5"};
-int		argc = 6;
-
-// int	main(int argc, char *argv[])
-int	main(void)
+enum e_bool	is_simulation_finished(t_head *head)
 {
-	t_head	*head;
+	int	i;
 
-	if (argc < 5 || argc > 6)
+	i = 0;
+	while (!head->is_simulation_finished && i < head->n_philos)
 	{
-		printf("./philo <n_philo> <time_to_die> <time_to_eat> <time_to_sleep> [limit_to_eat]\n");
-		return (1);
+		if (head->philos[i].meals >= head->meals_limit)
+			head->is_simulation_finished = TRUE;
+		else if (head->philos[i].is_dead)
+			head->is_simulation_finished = TRUE;
+		i++;
 	}
-	if (parse(&head, argv + 1, argc - 1))
-		return (1);
-	simulation(head, head->philos);
-	return (0);
+	return (head->is_simulation_finished);
 }

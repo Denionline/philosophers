@@ -6,7 +6,7 @@
 #    By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/22 10:28:25 by dximenes          #+#    #+#              #
-#    Updated: 2025/12/04 14:00:50 by dximenes         ###   ########.fr        #
+#    Updated: 2025/12/05 14:24:16 by dximenes         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,10 +49,18 @@ VPATH				+= src/aux/actions/
 # **************************************************************************** #
 
 FILES				+= main
-FILES				+= parse_init
-FILES				+= philosophers
+
 FILES				+= aux
-FILES				+= print
+FILES				+= parse
+FILES				+= simulation
+
+FILES				+= is_simulation_finished
+FILES				+= print_actions
+FILES				+= precise_sleep
+FILES				+= mutex_handle
+FILES				+= actions
+FILES				+= end
+
 FILES				+= get_time
 
 SRCS				= $(addprefix ./, $(addsuffix .c, $(FILES)))
@@ -63,7 +71,8 @@ OBJS				= $(addprefix $(BUILD_PATH), $(addsuffix .o, $(FILES)))
 # **************************************************************************** #
 
 CC					= cc
-CFLAGS				= -Werror -Wextra -Wall
+CFLAGS				= -Werror -Wextra -Wall -g
+SANITAZER			= -fsanitize=thread
 MAKE				= make --no-print-directory
 RM					= rm -rf
 
@@ -86,6 +95,12 @@ $(BUILD_PATH)%.o: %.c
 
 $(BUILD_PATH):
 	@mkdir $(BUILD_PATH)
+
+sani:
+	@$(CC) $(SANITAZER) -I$(INC_PATH) $(OBJS) -o $(NAME)
+
+val:
+	valgrind --tool=helgrind --history-level=approx ./$(NAME)
 
 clean:
 	@$(RM) $(BUILD_PATH)

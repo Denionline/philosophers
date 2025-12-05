@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_init.c                                       :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 16:28:07 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/02 20:46:09 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/04 19:43:30 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,29 +44,30 @@ t_philo	*get_philos(t_head *head)
 		philos[i].id = (i + 1);
 		philos[i].head = head;
 		philos[i].exists = TRUE;
-		philos[i].left_fork = &head->forks[i];
-		philos[i].right_fork = &head->forks[(i + 1) % head->n_philos];
+		if (head->forks)
+		{
+			philos[i].fork.left = &head->forks[i].mutex;
+			philos[i].fork.right = &head->forks[(i + 1) % head->n_philos].mutex;
+		}
 	}
 	return (philos);
 }
 
 int	parse(t_head **head, char *args[], int len)
 {
-	int	i;
-
 	if (len < 4 || len > 5)
 		return (1);
 	(*head) = calloc(1, sizeof(t_head));
 	if (!(*head))
 		return (1);
 	(*head)->n_philos = ft_atol(args[0]);
-	(*head)->time_to.die = ft_atol(args[1]);
-	(*head)->time_to.eat = ft_atol(args[2]);
-	(*head)->time_to.sleep = ft_atol(args[3]);
+	(*head)->time_to.die = ft_atol(args[1]) * 1e3;
+	(*head)->time_to.eat = ft_atol(args[2]) * 1e3;
+	(*head)->time_to.sleep = ft_atol(args[3]) * 1e3;
 	(*head)->meals_limit = -1;
 	if (len == 5)
 		(*head)->meals_limit = ft_atol(args[4]);
-	(*head)->philos = get_philos(*head);
 	(*head)->forks = get_forks(*head);
+	(*head)->philos = get_philos(*head);
 	return (0);
 }

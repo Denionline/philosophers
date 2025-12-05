@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   mutex_handle.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/22 10:02:52 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/05 15:18:15 by dximenes         ###   ########.fr       */
+/*   Created: 2025/12/05 14:15:02 by dximenes          #+#    #+#             */
+/*   Updated: 2025/12/05 14:17:24 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-char	*argv[] = {"./philo", "4", "200", "100", "100", "5"};
-int		argc = 6;
-
-// int	main(int argc, char *argv[])
-int	main(void)
+int	mutex_handle(mutex_t *mutex, enum e_mutex_action action)
 {
-	t_head	*head;
-
-	if (argc < 5 || argc > 6)
-	{
-		printf("./philo <n_philo> <time_to_die> <time_to_eat> <time_to_sleep> [limit_to_eat]\n");
-		return (1);
-	}
-	if (parse(&head, argv + 1, argc - 1))
-		return (1);
-	simulation(head, head->philos);
-	return (0);
+	if (action == LOCK)
+		return (pthread_mutex_lock(mutex));
+	if (action == UNLOCK)
+		return (pthread_mutex_unlock(mutex));
+	return (-1);
 }
