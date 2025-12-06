@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 13:57:30 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/05 16:33:02 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/06 12:00:18 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,14 @@ static void	*routine(void *args)
 	t_philo	*philo;
 
 	philo = (t_philo *)(args);
-	if (!(philo->id % 2))
-		usleep(1000);
+	usleep(!(philo->id % 2) * 10);
 	while (!is_simulation_finished(philo->head))
 	{
-		actions(philo, THINK);
 		manage_forks(philo, LOCK);
 		actions(philo, EAT);
 		manage_forks(philo, UNLOCK);
 		actions(philo, SLEEP);
+		actions(philo, THINK);
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 11:07:29 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/05 16:05:10 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/06 15:15:51 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,26 @@
 
 enum e_bool	is_simulation_finished(t_head *head)
 {
-	int	i;
+	t_philo	*philos;
+	// long	time_now;
+	int		all_meals;
+	int		i;
 
+	all_meals = 0;
+	philos = head->philos;
+	// time_now = get_time_now(MILISECONDS);
 	i = 0;
 	while (!head->is_simulation_finished && i < head->n_philos)
 	{
-		if (head->philos[i].meals >= head->meals_limit)
-			head->is_simulation_finished = TRUE;
-		else if (head->philos[i].is_dead)
+		// if ((time_now - philos[i].last_meal) > head->time_to.die)
+		// 	head->is_simulation_finished = TRUE;
+		if (head->meals_limit > 0 && philos[i].meals >= head->meals_limit)
+			all_meals += 1;
+		else if (philos[i].is_dead)
 			head->is_simulation_finished = TRUE;
 		i++;
 	}
+	if (all_meals == head->n_philos)
+		head->is_simulation_finished = TRUE;
 	return (head->is_simulation_finished);
 }
