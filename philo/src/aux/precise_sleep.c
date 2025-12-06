@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 10:54:10 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/06 15:01:23 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/06 15:36:39 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	precise_sleep(long long milisec, t_head *head)
 	target_us = milisec * 1e3;
 	while ((get_time_now(MILISECONDS) - start) < milisec)
 	{
-		elapsed_us = (get_time_now(MILISECONDS) - start) * 1000LL;
+		elapsed_us = (get_time_now(MILISECONDS) - start) * 1e3;
 		remain_us = target_us - elapsed_us;
 		if (remain_us > 2000)
 			usleep((unsigned int)(remain_us / 2));

@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 10:26:11 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/06 14:46:27 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/06 15:37:02 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct s_philo
 	int			id;
 	int			meals;
 	int			exists;
-	long		last_meal;
+	time_t		last_meal;
 	enum e_bool	is_dead;
 	struct s_side
 	{

@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 16:28:07 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/06 14:57:43 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/06 15:36:25 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int	parse(t_head **head, char *args[], int len)
 	if (!(*head))
 		return (1);
 	(*head)->n_philos = ft_atol(args[0]);
-	/* store times in milliseconds (consistent with get_time_now(MILISECONDS)) */
 	(*head)->time_to.die = ft_atol(args[1]);
 	(*head)->time_to.eat = ft_atol(args[2]);
 	(*head)->time_to.sleep = ft_atol(args[3]);
