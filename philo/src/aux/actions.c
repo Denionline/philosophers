@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 20:56:25 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/05 17:43:47 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/06 15:08:52 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,10 @@ static void	action_think(t_philo **philo, time_t time_now)
 
 static void	action_eat(t_philo **philo, time_t time_now)
 {
-	if ((time_now - (*philo)->last_meal) > (*philo)->head->time_to.die)
-		(*philo)->is_dead = TRUE;
-	else
-	{
-		(*philo)->meals += 1;
-		(*philo)->last_meal = time_now;
-		print_actions((*philo)->head, (*philo)->id, time_now, EAT);
-		precise_sleep((*philo)->head->time_to.eat, (*philo)->head);
-	}
+	(*philo)->last_meal = time_now;
+	print_actions((*philo)->head, (*philo)->id, time_now, EAT);
+	precise_sleep((*philo)->head->time_to.eat, (*philo)->head);
+	(*philo)->meals += 1;
 }
 
 static void	action_sleep(t_philo **philo, time_t time_now)

@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 10:26:11 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/05 16:32:36 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/06 14:46:27 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void		print_actions(t_head *head, int idx, time_t time, enum e_actions action);
 long		ft_atol(const char *n);
 
 enum e_bool	is_simulation_finished(t_head *head);
-void		precise_sleep(long milisec, t_head *head);
+void		precise_sleep(long long milisec, t_head *head);
 
 // aux/actions.c
 int			mutex_handle(mutex_t *mutex, enum e_mutex_action action);
