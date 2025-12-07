@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 13:57:30 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/07 22:14:56 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/07 22:40:18 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,20 @@ static void	*routine(void *args)
 	return (NULL);
 }
 
+static int	single_routine(t_philo *philo)
+{
+	actions(philo, SLEEP);
+	actions(philo, THINK);
+	actions(philo, DIE);
+	return (0);
+}
+
 int	simulation(t_head *head, t_philo *philos)
 {
 	int	i;
 
+	if (head->n_philos == 1)
+		return (single_routine(philos));
 	i = 0;
 	while (i < head->n_philos)
 	{

@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 16:28:07 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/07 21:50:20 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/07 22:33:24 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,9 @@ t_philo	*get_philos(t_head *head)
 		philos[i].head = head;
 		philos[i].last_meal = head->start_time;
 		if (head->forks)
-		{
 			philos[i].fork.left = &head->forks[i];
+		if (head->forks && head->n_philos > 1)
 			philos[i].fork.right = &head->forks[(i + 1) % head->n_philos];
-		}
 		i++;
 	}
 	return (philos);
