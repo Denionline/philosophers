@@ -6,34 +6,45 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 13:57:30 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/07 18:29:36 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/07 19:59:47 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	manage_forks(t_philo *philo, enum e_mutex_action action)
+static int	manage_forks(t_philo *philo, enum e_mutex_action action)
 {
+	if (action == UNLOCK)
+	{
+		mutex_handle(philo->fork.left, UNLOCK);
+		mutex_handle(philo->fork.right, UNLOCK);
+		return (1);
+	}
 	if (is_simulation_finished(philo->head))
-		return ;
+		return (0);
 	if (philo->id % 2)
 	{
-		mutex_handle(philo->fork.right, action);
-		if (action == LOCK)
-			print_actions(philo->head, philo->id, get_time_now(MILISECONDS), FORK);
-		mutex_handle(philo->fork.left, action);
-		if (action == LOCK)
-			print_actions(philo->head, philo->id, get_time_now(MILISECONDS), FORK);
+		mutex_handle(philo->fork.right, LOCK);
+		if (is_simulation_finished(philo->head))
+			return (mutex_handle(philo->fork.right, UNLOCK), 0);
+		print_actions(philo->head, philo->id, get_time_now(MILISECONDS), FORK);
+		mutex_handle(philo->fork.left, LOCK);
+		if (is_simulation_finished(philo->head))
+			return (mutex_handle(philo->fork.left, UNLOCK), mutex_handle(philo->fork.right, UNLOCK), 0);
+		print_actions(philo->head, philo->id, get_time_now(MILISECONDS), FORK);
 	}
 	else
 	{
-		mutex_handle(philo->fork.left, action);
-		if (action == LOCK)
-			print_actions(philo->head, philo->id, get_time_now(MILISECONDS), FORK);
-		mutex_handle(philo->fork.right, action);
-		if (action == LOCK)
-			print_actions(philo->head, philo->id, get_time_now(MILISECONDS), FORK);
+		mutex_handle(philo->fork.left, LOCK);
+		if (is_simulation_finished(philo->head))
+			return (mutex_handle(philo->fork.left, UNLOCK), 0);
+		print_actions(philo->head, philo->id, get_time_now(MILISECONDS), FORK);
+		mutex_handle(philo->fork.right, LOCK);
+		if (is_simulation_finished(philo->head))
+			return (mutex_handle(philo->fork.right, UNLOCK), mutex_handle(philo->fork.left, UNLOCK), 0);
+		print_actions(philo->head, philo->id, get_time_now(MILISECONDS), FORK);
 	}
+	return (1);
 }
 
 static void	*routine(void *args)
@@ -44,7 +55,8 @@ static void	*routine(void *args)
 	precise_sleep(!(philo->id % 2) * 1e1);
 	while (!is_simulation_finished(philo->head))
 	{
-		manage_forks(philo, LOCK);
+		if (!manage_forks(philo, LOCK))
+			break ;
 		actions(philo, EAT);
 		manage_forks(philo, UNLOCK);
 		actions(philo, SLEEP);
