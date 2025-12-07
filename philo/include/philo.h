@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 10:26:11 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/06 15:37:02 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/07 11:52:05 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ enum e_seconds
 
 typedef struct s_head t_head;
 
-typedef struct s_time
+typedef struct s_info
 {
 	time_t	die;
 	time_t	eat;
 	time_t	sleep;
-}	t_time;
+}	t_info;
 
 typedef struct s_fork
 {
@@ -87,10 +87,11 @@ typedef struct s_head
 {
 	long		n_philos;
 	long		meals_limit;
-	t_time		time_to;
+	t_info		time_to;
 	enum e_bool	someone_died;
 	enum e_bool	is_simulation_finished;
 	mutex_t		mutex;
+	mutex_t		to_check;
 	mutex_t		print;
 	time_t		start_time;
 	t_fork		*forks;
@@ -103,7 +104,7 @@ void		print_actions(t_head *head, int idx, time_t time, enum e_actions action);
 long		ft_atol(const char *n);
 
 enum e_bool	is_simulation_finished(t_head *head);
-void		precise_sleep(long long milisec, t_head *head);
+void		precise_sleep(long milisec);
 
 // aux/actions.c
 int			mutex_handle(mutex_t *mutex, enum e_mutex_action action);

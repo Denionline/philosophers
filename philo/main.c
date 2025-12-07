@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 10:02:52 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/06 15:07:14 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/07 11:46:04 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 int	main(int argc, char *argv[])
 {
 	t_head	*head;
-	char	*test_argv[] = {"./philo", "4", "200", "100", "100"};
-	int		test_argc = 5;
+	char	*test_argv[] = {"./philo", "4", "200", "101", "100", "5"};
+	int		test_argc = 6;
 
 	if (argc == 1) {
 		argc = test_argc;

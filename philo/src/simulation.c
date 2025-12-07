@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 13:57:30 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/06 12:00:18 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/07 11:52:39 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	manage_forks(t_philo *philo, enum e_mutex_action action)
 {
-	if (philo->head->is_simulation_finished)
+	if (is_simulation_finished(philo->head))
 		return ;
 	if (philo->id % 2)
 	{
@@ -41,7 +41,7 @@ static void	*routine(void *args)
 	t_philo	*philo;
 
 	philo = (t_philo *)(args);
-	usleep(!(philo->id % 2) * 10);
+	precise_sleep(!(philo->id % 2) * 1e1);
 	while (!is_simulation_finished(philo->head))
 	{
 		manage_forks(philo, LOCK);
@@ -49,6 +49,8 @@ static void	*routine(void *args)
 		manage_forks(philo, UNLOCK);
 		actions(philo, SLEEP);
 		actions(philo, THINK);
+		if (philo->is_dead)
+			actions(philo, DIE);
 	}
 	return (NULL);
 }

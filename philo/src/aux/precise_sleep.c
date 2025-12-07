@@ -6,20 +6,19 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 10:54:10 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/06 15:36:39 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/07 11:52:34 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	precise_sleep(long long milisec, t_head *head)
+void	precise_sleep(long milisec)
 {
-	long long	start;
-	long long	target_us;
-	long long	elapsed_us;
-	long long	remain_us;
+	long	start;
+	long	target_us;
+	long	elapsed_us;
+	long	remain_us;
 
-	(void)head;
 	start = get_time_now(MILISECONDS);
 	target_us = milisec * 1e3;
 	while ((get_time_now(MILISECONDS) - start) < milisec)

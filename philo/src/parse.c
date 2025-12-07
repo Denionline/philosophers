@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 16:28:07 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/06 15:36:25 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/07 11:42:46 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ t_philo	*get_philos(t_head *head)
 		philos[i].id = (i + 1);
 		philos[i].head = head;
 		philos[i].exists = TRUE;
+		philos[i].last_meal = head->start_time;
 		if (head->forks)
 		{
 			philos[i].fork.left = &head->forks[i].mutex;
@@ -67,6 +68,7 @@ int	parse(t_head **head, char *args[], int len)
 	(*head)->meals_limit = -1;
 	if (len == 5)
 		(*head)->meals_limit = ft_atol(args[4]);
+	(*head)->start_time = get_time_now(MILISECONDS);
 	(*head)->forks = get_forks(*head);
 	(*head)->philos = get_philos(*head);
 	return (0);
