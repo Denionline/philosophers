@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 13:57:30 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/07 11:52:39 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/07 18:29:36 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,10 @@ static void	*routine(void *args)
 		manage_forks(philo, UNLOCK);
 		actions(philo, SLEEP);
 		actions(philo, THINK);
-		if (philo->is_dead)
-			actions(philo, DIE);
+		precise_sleep((philo->head->n_philos % 2 && philo->id % 2) * 1e1);
 	}
+	if (philo->is_dead)
+		actions(philo, DIE);
 	return (NULL);
 }
 
@@ -59,16 +60,15 @@ int	simulation(t_head *head, t_philo *philos)
 {
 	int	i;
 
-	head->start_time = get_time_now(MILISECONDS);
 	i = 0;
-	while (philos[i].exists)
+	while (i < head->n_philos)
 	{
 		if (pthread_create(&philos[i].thread, NULL, routine, &philos[i]))
 			perror("Erro thread");
 		i++;
 	}
 	i = 0;
-	while (philos[i].exists)
+	while (i < head->n_philos)
 		pthread_join(philos[i++].thread, NULL);
 	return (0);
 }

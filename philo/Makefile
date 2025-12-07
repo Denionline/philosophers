@@ -6,7 +6,7 @@
 #    By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/22 10:28:25 by dximenes          #+#    #+#              #
-#    Updated: 2025/12/05 14:24:16 by dximenes         ###   ########.fr        #
+#    Updated: 2025/12/07 17:55:06 by dximenes         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,9 +50,10 @@ VPATH				+= src/aux/actions/
 
 FILES				+= main
 
-FILES				+= aux
 FILES				+= parse
 FILES				+= simulation
+FILES				+= get_string_as_number
+FILES				+= get_number_as_string
 
 FILES				+= is_simulation_finished
 FILES				+= print_actions
@@ -73,6 +74,7 @@ OBJS				= $(addprefix $(BUILD_PATH), $(addsuffix .o, $(FILES)))
 CC					= cc
 CFLAGS				= -Werror -Wextra -Wall -g
 SANITAZER			= -fsanitize=thread
+ARGS				= 1 1 1 1 1
 MAKE				= make --no-print-directory
 RM					= rm -rf
 
@@ -100,7 +102,7 @@ sani:
 	@$(CC) $(SANITAZER) -I$(INC_PATH) $(OBJS) -o $(NAME)
 
 val:
-	valgrind --tool=helgrind --history-level=approx ./$(NAME)
+	valgrind --tool=helgrind --history-level=approx ./$(NAME) $(ARGS)
 
 clean:
 	@$(RM) $(BUILD_PATH)

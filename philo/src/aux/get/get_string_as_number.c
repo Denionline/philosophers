@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   aux.c                                              :+:      :+:    :+:   */
+/*   get_string_as_number.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/28 11:36:15 by dximenes          #+#    #+#             */
-/*   Updated: 2025/11/28 17:10:02 by dximenes         ###   ########.fr       */
+/*   Created: 2025/12/07 14:08:55 by dximenes          #+#    #+#             */
+/*   Updated: 2025/12/07 14:27:54 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long	ft_atol(const char *n)
+long	get_string_as_number(char *n)
 {
+	int		size;
 	long	res;
-	int		neg;
 
-	neg = 1;
 	while ((*n >= '\t' && *n <= '\r') || *n == ' ')
 		n++;
-	if ((*n == '+' || *n == '-') && (*(n + 1) >= '0' && *(n + 1) <= '9'))
+	if ((*n == '+' || *n == '-'))
 		if (*(n++) == '-')
-			neg = -1;
+			return (-1);
+	size = 0;
 	res = 0;
-	while (*n && (*n >= '0' && *n <= '9'))
+	while (*n && (*n >= '0' && *n <= '9') && size < 20)
+	{
 		res = (res * 10) + (*(n++) - '0');
-	return (res * neg);
+		size++;
+	}
+	if (size == 20)
+		return (-1);
+	return (res);
 }

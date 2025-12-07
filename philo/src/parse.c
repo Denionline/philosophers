@@ -6,27 +6,23 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 16:28:07 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/07 11:42:46 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/07 18:08:21 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_fork	*get_forks(t_head *head)
+mutex_t	*get_forks(t_head *head)
 {
-	t_fork	*forks;
+	mutex_t	*forks;
 	int		i;
 
-	forks = calloc(head->n_philos + 1, sizeof(t_fork));
+	forks = calloc(head->n_philos, sizeof(mutex_t));
 	if (!forks)
 		return (NULL);
-	i = -1;
-	while (++i < head->n_philos)
-	{
-		pthread_mutex_init(&forks[i].mutex, NULL);
-		forks[i].exists = TRUE;
-		forks[i].id = i;
-	}
+	i = 0;
+	while (i < head->n_philos)
+		pthread_mutex_init(&forks[i++], NULL);
 	return (forks);
 }
 
@@ -38,38 +34,58 @@ t_philo	*get_philos(t_head *head)
 	philos = calloc(head->n_philos + 1, sizeof(t_philo));
 	if (!philos)
 		return (NULL);
-	i = -1;
-	while (++i < head->n_philos)
+	i = 0;
+	while (i < head->n_philos)
 	{
 		philos[i].id = (i + 1);
 		philos[i].head = head;
-		philos[i].exists = TRUE;
 		philos[i].last_meal = head->start_time;
 		if (head->forks)
 		{
-			philos[i].fork.left = &head->forks[i].mutex;
-			philos[i].fork.right = &head->forks[(i + 1) % head->n_philos].mutex;
+			philos[i].fork.left = &head->forks[i];
+			philos[i].fork.right = &head->forks[(i + 1) % head->n_philos];
 		}
+		i++;
 	}
 	return (philos);
+}
+
+int	is_there_some_error(t_head *head)
+{
+	if (head->n_philos > 200)
+		return (TRUE);
+	if (!head->philos || !head->forks)
+		return (TRUE);
+	if (head->time_to.die < 0 || head->time_to.eat < 0)
+		return (TRUE);
+	if (head->time_to.sleep < 0 || head->meals_limit < 0)
+		return (TRUE);
+	return (FALSE);
 }
 
 int	parse(t_head **head, char *args[], int len)
 {
 	if (len < 4 || len > 5)
+	{
+		printf("./philo <n_philo> <time_to_die> <time_to_eat> <time_to_sleep> [limit_to_eat]\n");
 		return (1);
+	}
 	(*head) = calloc(1, sizeof(t_head));
 	if (!(*head))
 		return (1);
-	(*head)->n_philos = ft_atol(args[0]);
-	(*head)->time_to.die = ft_atol(args[1]);
-	(*head)->time_to.eat = ft_atol(args[2]);
-	(*head)->time_to.sleep = ft_atol(args[3]);
-	(*head)->meals_limit = -1;
+	(*head)->n_philos = get_string_as_number(args[0]);
+	(*head)->time_to.die = get_string_as_number(args[1]);
+	(*head)->time_to.eat = get_string_as_number(args[2]);
+	(*head)->time_to.sleep = get_string_as_number(args[3]);
+	(*head)->meals_limit = LONG_MAX;
 	if (len == 5)
-		(*head)->meals_limit = ft_atol(args[4]);
+		(*head)->meals_limit = get_string_as_number(args[4]);
+	pthread_mutex_init(&(*head)->print, NULL);
+	pthread_mutex_init(&(*head)->mutex, NULL);
 	(*head)->start_time = get_time_now(MILISECONDS);
 	(*head)->forks = get_forks(*head);
 	(*head)->philos = get_philos(*head);
+	if (is_there_some_error(*head))
+		return (1);
 	return (0);
 }
