@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 10:26:11 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/07 18:07:33 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/07 21:59:51 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,14 @@ enum e_seconds
 	SECONDS,
 	MICROSECONDS,
 	MILISECONDS,
+};
+
+enum e_errors
+{
+	ERR_MALLOC = 200,
+	ERR_INVALID_ARGS,
+	ERR_N_PHILO_MORE_THAN_LIMIT,
+	ERR_ARG_OUT_OF_LIMIT,
 };
 
 typedef struct s_head t_head;
@@ -94,6 +102,7 @@ long		get_string_as_number(char *n);
 
 enum e_bool	is_simulation_finished(t_head *head);
 void		precise_sleep(long milisec);
+int			handle_errors(enum e_errors code);
 
 // aux/actions.c
 int			mutex_handle(mutex_t *mutex, enum e_mutex_action action);

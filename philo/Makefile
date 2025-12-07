@@ -6,7 +6,7 @@
 #    By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/22 10:28:25 by dximenes          #+#    #+#              #
-#    Updated: 2025/12/07 17:55:06 by dximenes         ###   ########.fr        #
+#    Updated: 2025/12/07 21:59:29 by dximenes         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ FILES				+= get_number_as_string
 FILES				+= is_simulation_finished
 FILES				+= print_actions
 FILES				+= precise_sleep
+FILES				+= handle_errors
 FILES				+= mutex_handle
 FILES				+= actions
 FILES				+= end

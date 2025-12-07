@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 16:28:07 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/07 18:08:21 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/07 21:50:20 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,23 +53,20 @@ t_philo	*get_philos(t_head *head)
 int	is_there_some_error(t_head *head)
 {
 	if (head->n_philos > 200)
-		return (TRUE);
+		return (handle_errors(ERR_N_PHILO_MORE_THAN_LIMIT));
 	if (!head->philos || !head->forks)
-		return (TRUE);
+		return (handle_errors(ERR_MALLOC));
 	if (head->time_to.die < 0 || head->time_to.eat < 0)
-		return (TRUE);
+		return (handle_errors(ERR_ARG_OUT_OF_LIMIT));
 	if (head->time_to.sleep < 0 || head->meals_limit < 0)
-		return (TRUE);
+		return (handle_errors(ERR_ARG_OUT_OF_LIMIT));
 	return (FALSE);
 }
 
 int	parse(t_head **head, char *args[], int len)
 {
 	if (len < 4 || len > 5)
-	{
-		printf("./philo <n_philo> <time_to_die> <time_to_eat> <time_to_sleep> [limit_to_eat]\n");
-		return (1);
-	}
+		return (handle_errors(ERR_INVALID_ARGS));
 	(*head) = calloc(1, sizeof(t_head));
 	if (!(*head))
 		return (1);
@@ -85,7 +82,5 @@ int	parse(t_head **head, char *args[], int len)
 	(*head)->start_time = get_time_now(MILISECONDS);
 	(*head)->forks = get_forks(*head);
 	(*head)->philos = get_philos(*head);
-	if (is_there_some_error(*head))
-		return (1);
-	return (0);
+	return (is_there_some_error(*head));
 }
