@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 21:39:55 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/07 22:02:07 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/07 22:46:51 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static char	*get_message(enum e_errors code)
 	if (code == ERR_MALLOC)
 		return ("Found malloc error\n");
 	if (code == ERR_INVALID_ARGS)
-		return ("./philo <n_philo> <time_to_die> <time_to_eat> <time_to_sleep> [limit_to_eat]\n");
+		return ("./philo <n_philo> <time_to_die> <time_to_eat>\
+				<time_to_sleep> [limit_to_eat]\n");
 	if (code == ERR_N_PHILO_MORE_THAN_LIMIT)
 		return ("The limit for number of philosophers is 200\n");
 	if (code == ERR_ARG_OUT_OF_LIMIT)

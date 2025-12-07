@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 20:59:16 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/07 16:03:38 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/07 22:45:37 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,26 +48,24 @@ static void	print_buff(char *buff, int size)
 		write(1, &buff[i++], 1);
 }
 
-void	print_actions(t_head *head, int idx, time_t time_now, enum e_actions action)
+void	print_actions(t_head *head, int idx, time_t time_now, int action)
 {
 	char	buff[9999];
 	char	time[20];
 	char	id[20];
-	char	*message;
-	long	diff;
 	int		pos;
 
 	pthread_mutex_lock(&head->print);
-	diff = time_now - head->start_time;
-	if (get_number_as_string(idx, id) || get_number_as_string(diff, time))
+	if (get_number_as_string(idx, id))
+		return ;
+	if (get_number_as_string(time_now - head->start_time, time))
 		return ;
 	pos = 0;
 	put_in_buff(time, buff, &pos);
 	put_in_buff(" ", buff, &pos);
 	put_in_buff(id, buff, &pos);
 	put_in_buff(" ", buff, &pos);
-	message = get_message(action);
-	put_in_buff(message, buff, &pos);
+	put_in_buff(get_message(action), buff, &pos);
 	put_in_buff("\n", buff, &pos);
 	print_buff(buff, pos);
 	pthread_mutex_unlock(&head->print);

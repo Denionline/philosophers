@@ -6,18 +6,18 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 16:28:07 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/07 22:33:24 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/07 22:42:45 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-mutex_t	*get_forks(t_head *head)
+t_mutex	*get_forks(t_head *head)
 {
-	mutex_t	*forks;
+	t_mutex	*forks;
 	int		i;
 
-	forks = calloc(head->n_philos, sizeof(mutex_t));
+	forks = calloc(head->n_philos, sizeof(t_mutex));
 	if (!forks)
 		return (NULL);
 	i = 0;

@@ -6,13 +6,13 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 13:57:30 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/07 22:40:18 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/07 22:42:45 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	hold_forks(t_philo *philo, mutex_t *fork1, mutex_t *fork2)
+static int	hold_forks(t_philo *philo, t_mutex *fork1, t_mutex *fork2)
 {
 	mutex_handle(fork1, LOCK);
 	if (is_simulation_finished(philo->head))
