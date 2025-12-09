@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 10:26:11 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/09 14:36:48 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/09 17:41:11 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ enum e_errors
 	ERR_INVALID_ARGS,
 	ERR_N_PHILO_MORE_THAN_LIMIT,
 	ERR_ARG_OUT_OF_LIMIT,
+	SOMEONE_DIED,
 };
 
 typedef struct s_head	t_head;
@@ -78,6 +79,7 @@ typedef struct s_head
 		time_t	sleep;
 	}			time_to;
 	int			*philos_pid;
+	t_philo		*philos;
 }	t_head;
 
 int			parse(t_head **head, char *args[], int len);
@@ -95,6 +97,6 @@ void		actions(t_philo *philo, enum e_actions action);
 // get/
 time_t		get_time_now(enum e_seconds type);
 
-int			end(t_head *head);
+int			end(t_head *head, int code, char *description);
 
 #endif
