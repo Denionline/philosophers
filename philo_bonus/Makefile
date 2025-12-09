@@ -6,7 +6,7 @@
 #    By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/22 10:28:25 by dximenes          #+#    #+#              #
-#    Updated: 2025/12/09 13:13:49 by dximenes         ###   ########.fr        #
+#    Updated: 2025/12/09 13:25:53 by dximenes         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ C_WHITE = \033[0;97m
 #                                    Files                                     #
 # **************************************************************************** #
 
-NAME				= philo
+NAME				= philo_bonus
 
 # **************************************************************************** #
 #                                   Path's                                     #
@@ -55,11 +55,9 @@ FILES				+= simulation
 FILES				+= get_string_as_number
 FILES				+= get_number_as_string
 
-FILES				+= is_simulation_finished
 FILES				+= print_actions
 FILES				+= precise_sleep
 FILES				+= handle_errors
-FILES				+= mutex_handle
 FILES				+= actions
 FILES				+= end
 

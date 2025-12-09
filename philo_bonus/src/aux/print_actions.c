@@ -6,11 +6,11 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 20:59:16 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/09 14:43:11 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/09 13:17:33 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 static char	*get_message(enum e_actions action)
 {
@@ -55,7 +55,7 @@ void	print_actions(t_head *head, int idx, time_t time_now, int action)
 	char	id[20];
 	int		pos;
 
-	mutex_handle(&head->print, LOCK);
+	pthread_mutex_lock(&head->print);
 	if (get_number_as_string(idx, id))
 		return ;
 	if (get_number_as_string(time_now - head->start_time, time))
@@ -68,5 +68,5 @@ void	print_actions(t_head *head, int idx, time_t time_now, int action)
 	put_in_buff(get_message(action), buff, &pos);
 	put_in_buff("\n", buff, &pos);
 	print_buff(buff, pos);
-	mutex_handle(&head->print, UNLOCK);
+	pthread_mutex_unlock(&head->print);
 }

@@ -1,35 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_string_as_number.c                             :+:      :+:    :+:   */
+/*   get_number_as_string.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/07 14:08:55 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/09 15:23:02 by dximenes         ###   ########.fr       */
+/*   Created: 2025/12/07 14:08:46 by dximenes          #+#    #+#             */
+/*   Updated: 2025/12/09 13:17:33 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
-long	get_string_as_number(char *n)
+static int	ft_getsize(long nbr)
 {
-	int		size;
-	long	res;
+	int	i;
 
-	while ((*n >= '\t' && *n <= '\r') || *n == ' ')
-		n++;
-	if ((*n == '+' || *n == '-'))
-		if (*(n++) == '-')
-			return (-1);
-	size = 0;
-	res = 0;
-	while (*n && (*n >= '0' && *n <= '9') && size < 20)
+	i = 1;
+	while (nbr >= 10)
 	{
-		res = (res * 10) + (*(n++) - '0');
-		size++;
+		nbr /= 10;
+		i++;
 	}
-	if (size == 0 || size == 20 || res > INT_MAX)
-		return (-1);
-	return (res);
+	return (i);
+}
+
+int	get_number_as_string(long n, char *buff)
+{
+	int	size;
+
+	size = ft_getsize(n);
+	buff[size] = '\0';
+	while (size > 0)
+	{
+		buff[--size] = (char)(n % 10 + '0');
+		n /= 10;
+	}
+	return (0);
 }

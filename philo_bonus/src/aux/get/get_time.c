@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_string_as_number.c                             :+:      :+:    :+:   */
+/*   get_time.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/07 14:08:55 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/09 15:23:02 by dximenes         ###   ########.fr       */
+/*   Created: 2025/11/28 17:10:48 by dximenes          #+#    #+#             */
+/*   Updated: 2025/12/09 13:17:33 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
-long	get_string_as_number(char *n)
+time_t	get_time_now(enum e_seconds type)
 {
-	int		size;
-	long	res;
+	struct timeval	time;
 
-	while ((*n >= '\t' && *n <= '\r') || *n == ' ')
-		n++;
-	if ((*n == '+' || *n == '-'))
-		if (*(n++) == '-')
-			return (-1);
-	size = 0;
-	res = 0;
-	while (*n && (*n >= '0' && *n <= '9') && size < 20)
-	{
-		res = (res * 10) + (*(n++) - '0');
-		size++;
-	}
-	if (size == 0 || size == 20 || res > INT_MAX)
-		return (-1);
-	return (res);
+	gettimeofday(&time, NULL);
+	if (type == MILISECONDS)
+		return ((time.tv_sec * 1e3) + (time.tv_usec / 1e3));
+	if (type == SECONDS)
+		return (time.tv_sec + (time.tv_usec / 1e6));
+	if (type == MICROSECONDS)
+		return ((time.tv_sec * 1e6) + time.tv_usec);
+	return (-1);
 }

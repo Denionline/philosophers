@@ -6,11 +6,11 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 20:56:25 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/09 15:17:55 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/09 13:17:33 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 static void	action_think(t_philo **philo, time_t time_now)
 {

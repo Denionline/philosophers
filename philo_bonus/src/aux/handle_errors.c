@@ -6,11 +6,11 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 21:39:55 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/09 15:24:49 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/09 13:17:33 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 static char	*get_message(enum e_errors code)
 {
@@ -22,7 +22,7 @@ static char	*get_message(enum e_errors code)
 	if (code == ERR_N_PHILO_MORE_THAN_LIMIT)
 		return ("The limit for number of philosophers is 200\n");
 	if (code == ERR_ARG_OUT_OF_LIMIT)
-		return ("Argument out of the range between 0 and INT_MAX \n");
+		return ("Argument out of the range between 0 and LONG_MAX \n");
 	return (NULL);
 }
 

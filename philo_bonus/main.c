@@ -1,35 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_string_as_number.c                             :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/07 14:08:55 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/09 15:23:02 by dximenes         ###   ########.fr       */
+/*   Created: 2025/08/22 10:02:52 by dximenes          #+#    #+#             */
+/*   Updated: 2025/12/09 14:36:49 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
-long	get_string_as_number(char *n)
+int	main(int argc, char *argv[])
 {
-	int		size;
-	long	res;
+	t_head	*head;
 
-	while ((*n >= '\t' && *n <= '\r') || *n == ' ')
-		n++;
-	if ((*n == '+' || *n == '-'))
-		if (*(n++) == '-')
-			return (-1);
-	size = 0;
-	res = 0;
-	while (*n && (*n >= '0' && *n <= '9') && size < 20)
-	{
-		res = (res * 10) + (*(n++) - '0');
-		size++;
-	}
-	if (size == 0 || size == 20 || res > INT_MAX)
-		return (-1);
-	return (res);
+	if (parse(&head, argv + 1, argc - 1))
+		return (1);
+	simulation(head);
+	return (end(head));
 }
