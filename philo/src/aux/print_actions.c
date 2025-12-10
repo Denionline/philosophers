@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 20:59:16 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/09 14:43:11 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/10 19:28:39 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ void	print_actions(t_head *head, int idx, time_t time_now, int action)
 	int		pos;
 
 	mutex_handle(&head->print, LOCK);
-	if (get_number_as_string(idx, id))
+	if (get_number_as_string(idx, id, 0))
 		return ;
-	if (get_number_as_string(time_now - head->start_time, time))
+	if (get_number_as_string(time_now - head->start_time, time, 6))
 		return ;
 	pos = 0;
 	put_in_buff(time, buff, &pos);

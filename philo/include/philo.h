@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 10:26:11 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/07 22:44:29 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/10 19:18:03 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef struct s_head
 int			parse(t_head **head, char *args[], int len);
 int			simulation(t_head *head, t_philo *philos);
 void		print_actions(t_head *head, int idx, time_t time, int action);
-int			get_number_as_string(long n, char *buff);
+int			get_number_as_string(long n, char *buff, int min);
 long		get_string_as_number(char *n);
 
 enum e_bool	is_simulation_finished(t_head *head);

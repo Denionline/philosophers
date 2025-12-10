@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 14:08:46 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/07 15:40:20 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/10 19:24:58 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,13 @@ static int	ft_getsize(long nbr)
 	return (i);
 }
 
-int	get_number_as_string(long n, char *buff)
+int	get_number_as_string(long n, char *buff, int min)
 {
 	int	size;
-
+	
 	size = ft_getsize(n);
+	if (min > size)
+		size = min;
 	buff[size] = '\0';
 	while (size > 0)
 	{
