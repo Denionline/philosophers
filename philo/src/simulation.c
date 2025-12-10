@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 13:57:30 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/09 15:08:44 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/10 19:34:11 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,19 +79,24 @@ static int	single_routine(t_philo *philo)
 
 int	simulation(t_head *head, t_philo *philos)
 {
+	int	pos;
 	int	i;
 
 	if (head->n_philos == 1)
 		return (single_routine(philos));
-	i = 0;
-	while (i < head->n_philos)
+	pos = 0;
+	while (pos < head->n_philos)
 	{
-		if (pthread_create(&philos[i].thread, NULL, routine, &philos[i]))
-			perror("Erro thread");
-		i++;
+		if (pthread_create(&philos[pos].thread, NULL, routine, &philos[pos]))
+		{
+			head->philos->is_dead = TRUE;
+			handle_errors(ERR_THREAD);
+			break ;
+		}
+		pos++;
 	}
 	i = 0;
-	while (i < head->n_philos)
+	while (i < pos)
 		pthread_join(philos[i++].thread, NULL);
 	return (0);
 }

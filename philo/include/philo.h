@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 10:26:11 by dximenes          #+#    #+#             */
-/*   Updated: 2025/12/10 19:18:03 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/12/10 19:30:29 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define PHILO_H
 
 # include <stdlib.h>
-# include <stdio.h>
 # include <string.h>
 # include <pthread.h>
 # include <unistd.h>
@@ -57,6 +56,7 @@ enum e_errors
 	ERR_INVALID_ARGS,
 	ERR_N_PHILO_MORE_THAN_LIMIT,
 	ERR_ARG_OUT_OF_LIMIT,
+	ERR_THREAD,
 };
 
 typedef struct s_head	t_head;
